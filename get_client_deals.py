@@ -1,10 +1,14 @@
 import config
 from db import db
 import datetime
+from fastapi import FastAPI, Request, Depends
 
 
-async def get_client_deals(client,account_no,delay,exceptions):
-
+async def get_client_deals(request: Request):
+    client = request.query_params.get("client")
+    account_no = request.query_params.get("account_no")
+    delay = request.query_params.get("delay")
+    exceptions = request.query_params.get("exceptions")
 
     if not (client and account_no and delay):
         return "-1<br>invalid parameter format"
